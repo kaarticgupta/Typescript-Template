@@ -1,264 +1,176 @@
-<!-- This is a Template Repository, use as needed! -->
+# 🚀 TypeScript Backend Project Template
 
-<!-- Project Summary -->
+A modern, scalable, and production-ready **TypeScript-based backend API template** designed for rapid development and maintainability. Includes robust error handling, layered architecture, Prisma ORM, middleware utilities, and token-based authentication.
 
-<br />
+---
 
-<div align="center">
-  <a href="https://github.com/NivaldoFarias/typescript-project-template">
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="Logo" width="90">
-  </a>
+## 📁 Built With
 
-  <h3 align="center">TypeScript Project Template</h3>
-  <div align="center">
-    Back End Development Project Template
-    <br />
-    <a href="https://github.com/NivaldoFarias/typescript-project-template/tree/main/src"><strong>Browse TypeScript code»</strong></a>
-  </div>
-</div>
+- **Node.js**
+- **TypeScript**
+- **Express**
+- **Prisma ORM**
+- **PostgreSQL**
+- **Joi** (for validation)
+- **JWT** (for authentication)
 
-<div align="center">
-  <h3>Built With</h3>
+---
 
-  <img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" height="30px"/>
-  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" height="30px"/>
-  <img src="https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white" height="30px"/>
-  <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" height="30px"/>  
-  <img src="https://img.shields.io/badge/Express.js-404D59?style=for-the-badge&logo=express.js&logoColor=white" height="30px"/>
-  <img src="https://img.shields.io/badge/JWT-323330?style=for-the-badge&logo=json-web-tokens&logoColor=pink" height="30px"/>
+## 🧭 Table of Contents
 
-  <!-- Badges source: https://dev.to/envoy_/150-badges-for-github-pnk -->
-</div>
+- [🔧 Installation & Usage](#-installation--usage)
+- [🧱 Project Structure](#-project-structure)
+- [🚨 Error Handling & Logging](#-error-handling--logging)
+- [🧩 Middlewares](#-middlewares)
+- [📡 API Reference](#-api-reference)
+- [📘 Models](#-models)
+- [🔐 Authentication](#-authentication)
 
-<br />
+---
 
-<div align="center">
-  <a href="https://github.com/NivaldoFarias/typescript-project-template/releases/tag/v2.0.0" alt="Current template version badge">
-    <img src="https://img.shields.io/github/package-json/v/NivaldoFarias/typescript-project-template?style=flat-square" />
-  </a>
-  <a href="https://github.com/NivaldoFarias/typescript-project-template/releases/tag/v2.0.0" alt="Current template version badge">
-    <img src="https://img.shields.io/badge/license-MIT-%23A8D1FF?style=flat-square" />
-  </a>
-</div>
+## 🔧 Installation & Usage
 
-<!-- Table of Contents -->
-## Table of Contents
+### 🛠 Prerequisites
 
-- [Installation and Usage](#installation-and-usage)
-- [Error Handling and Logging](#error-handling-and-logging)
-  - [AppError](#apperror)
-  - [AppLog](#applog)
-- [Middlewares](#middlewares)
-- [API Reference](#api-reference)
-  - [Models](#models)
-  - [Routes](#routes)
-  - [Authentication](#authentication)
+- Node.js `^18.12.1`
+- npm `^8.19.2` or yarn `^1.22.19`
+- PostgreSQL `^12.11`
 
-<!-- Installation and Usage -->
-## Installation and Usage
+### 🚀 Getting Started
 
-###### Pre-requisites: Node `^18.12.1`, npm `^8.19.2` OR yarn `^1.22.19` , PostgreSQL `^12.11`
+#### Option 1: Use GitHub Template
 
-There are two available options for you to use this template for your next Back End project: either use Github's built-in `Use this template` feature (green button left of the _'About'_ section), or download the zip file and extract it in the root of a new project folder by running these commands:
+Click the **"Use this template"** button on GitHub.
+
+#### Option 2: Manual Setup
 
 ```bash
 wget https://github.com/NivaldoFarias/typescript-project-template/archive/main.zip
+unzip main.zip
+cd typescript-project-template-main
 ```
 
-Then run the following command to install the project's dependencies:
+### Install Dependencies
 
 ```bash
 # Using npm
 npm install
 
-# Using yarn
+# Or using yarn
 yarn install
 ```
 
-That's it! You can now start developing your TypeScript Project by running the command below. Happy coding!
+### Start Development Server
 
 ```bash
 # Using npm
 npm run dev
 
-# Using yarn
+# Or using yarn
 yarn dev
 ```
 
-###### _ps.: Make sure to update the package.json file with your own credentials!_
+> 🔄 Don't forget to update your `package.json` and `.env` with your project's information.
 
-<!-- Error Handling and Logging -->
-## Error Handling and Logging
+---
 
-While dealing with errors in a _Layered Structure_ Project enviroment, you may notice that the project's debugging complexity scales beyond common `console.log()` usage. The `AppLog` Object and `AppError` Object structures were set to counter that exact issue, by trying to keep the Development process as clean and concise as possible. Both are frequently referenced in the code, but do have a specific usage.
+## 🧱 Project Structure
 
-## AppError
+```
+src/
+├── controllers/
+├── middlewares/
+├── models/
+├── repositories/
+├── routes/
+├── services/
+├── utils/
+├── events/
+│   ├── AppError.ts
+│   └── AppLog.ts
+└── index.ts
+```
 
-An `AppError` Object is used to handle errors in the application. It that takes four parameters:
+---
 
-- `log`: A string containing a simplified error message, for _Server side_ use. **This is the message that will be used by the `AppLog` Object**
-- `statusCode`: An integer containing the HTTP status code.
-- `message`: A string containing a simplified error message, for _Client side_ use. **This is the message that will be displayed to the user.**
-- `details`: A string containing a detailed error message, for _Client side_ use. Can be used to provide more information about the error, such as the stack trace, or suggestions on how to counter the error.
+## 🚨 Error Handling & Logging
 
-### Example Usage
+### AppError
 
-```typescript
-  // ..../middlewares/auth.middleware.ts
+A custom error handler class designed to standardize error responses.
 
-  import * as repository from './../repositories/auth.repository.ts';
-  import AppError from './../events/AppError';
-  ...
-  ..
-
-  async function usersExists(req: Request,...){
-    ...
-    ..
-    const user = await repository.findbyId(req.body.id);
-
-    if (!user){
-      throw new AppError(
-        'User not found',
-        404,
-        'User not found',
-        'Ensure to provide a valid user ID.'
-      );
-    }
-    ..
-    ...
-  }
+```ts
+new AppError(
+  'User not found',   // log message (server-side)
+  404,                // status code
+  'User not found',   // client-facing message
+  'Ensure to provide a valid user ID.' // details
+);
 ```
 
 ### AppLog
 
-An `AppLog` Object is used to handle logs in the application. Each method corresponds to a respective color and prefix to log messages. It takes one parameter: `text`: a descriptive string containing the message to be logged.
+A logging utility that categorizes logs using color-coded prefixes for easy debugging:
 
-|     Method     |  Color  |   Log prefix   |
-| :------------: | :-----: | :------------: |
-| **controller** |  Green  | `[Controller]` |
-| **repository** |  Blue   | `[Repository]` |
-| **middleware** | Magenta | `[Middleware]` |
-|  **service**   |  Cyan   |  `[Service]`   |
-|   **error**    |   Red   |   `[Error]`    |
-|   **server**   | Yellow  |   `[Server]`   |
-|   **utils**    |  Cyan   |   `[Utils]`    |
-
-#### Example Usage
+| Method      | Color   | Prefix        |
+|-------------|---------|---------------|
+| `controller`| Green   | `[Controller]`|
+| `repository`| Blue    | `[Repository]`|
+| `middleware`| Magenta | `[Middleware]`|
+| `service`   | Cyan    | `[Service]`   |
+| `error`     | Red     | `[Error]`     |
+| `server`    | Yellow  | `[Server]`    |
+| `utils`     | Cyan    | `[Utils]`     |
 
 ```ts
-// .../middlewares/auth.middleware.ts
-
-//...
-async function validPassword(password: string) {
-  const isValid = await bcrypt.compare(password, user.password);
-
-  if (!isValid) {
-    // throw an AppError instance
-  }
-
-  return AppLog.middleware("Password is valid");
-}
+AppLog.middleware("Password is valid");
+AppLog.controller("User created successfully");
 ```
 
-#### Example Usage
+---
 
-```typescript
-  // ..../middlewares/auth.middleware.ts
+## 🧩 Middlewares
 
-  import AppLog from './events/AppLog';
-  ...
-  ..
+The project supports modular middleware through the `useMiddleware` utility.
 
-  async function usersExists(req: Request,...){
-    ...
-    ..
+### useMiddleware Options
 
-    // output: [Middleware] User Found
-    AppLog('Middleware', 'User found');
-    res.locals.user = user;
-    return next();
-  }
-  ..
-  ...
+```ts
+useMiddleware({
+  schema,     // Joi schema
+  header,     // e.g. 'admin-api-key'
+  token       // boolean - validate JWT
+}, endpoint);
 ```
 
-###### _ps.2: Have fun with these structures! They are in no way restricted to the project's scope_
+### Built-in Middlewares
 
-<!-- Middlewares -->
+- `validateSchema()` – Joi schema validation
+- `processHeader()` – Custom header validation
+- `requireToken()` – JWT verification
 
-## Middlewares
-
-While aiming to provide a reusable, modular and extensible architecture, the middlewares are generally the first structures to be refactored into self-contained modules. The `validateSchema()`, `processHeader()` and `requireToken()` middlewares were set in order to achieve that goal. The following section describes **`useMiddleware()`**, which incorporates the forementioned functions as _key–value_ pairs in an Object, along with their structure and usage.
-
-### UseMiddleware
-
-The `useMiddleware()` function takes two parameters:
-
-- `middlewares`: An Object containing the _key–value_ pairs of the middlewares to be used, takes one to three parameters:
-  - `schema`: A [Joi](https://joi.dev/api/) Schema Object that will be used to validate the data provided by the client. If the data provided by the client is not valid, an **`AppError`** Object will be thrown.
-  - `header`: A string containing the name of the header that will be used to authenticate the action. If the client-provided header is missing, an **`AppError`** Object will be thrown.
-  - `token`: A boolean indicating whether the token provided by the client will be verified or not. If the token is not valid, an **`AppError`** Object will be thrown.
-- `endpoint`: A string that will be used to identify the endpoint at which the _client–api_ interaction is undergoing, which will be logged to console by the **`AppLog`** Object.
-
-###### Reference: [useMiddleware function declaration](https://github.com/NivaldoFarias/typescript-project-template/blob/main/src/utils/middleware.util.ts)
-
-#### Example Usage
-
-```typescript
-// ..../routes/admin.route.ts
-import useMiddleware from '../utils/middleware.util';
-import * as schema from '../models/admin.model';
-...
-..
-const endpoint = '/admin';
-
-const registerEndpoint = '/create';
-adminRouter.post(endpoint,
-  createEndpoint,
+```ts
+adminRouter.post(
+  "/admin/create",
   useMiddleware({
     schema: schema.create,
     header: 'admin-api-key',
     token: true
-  },
-  endpoint + createEndpoint),
+  }, "/admin/create"),
   middleware.createValidations,
-  controller.create,
+  controller.create
 );
-..
-...
 ```
 
-## API Reference
+---
 
-In this section, you will find the example API's endpoints and their respective descriptions, along with the request and response examples, as well as the [Prisma](https://www.prisma.io/) models for each entity, that can be used as guide for data formatting. All data is sent and received as JSON.
+## 📡 API Reference
 
-### Models
+### POST `/auth/register`
 
-#### User model _`users`_
+Registers a new user.
 
-- `id`: A unique identifier for each user. `serial4`
-- `username`: The user's username. `text`
-- `email`: The user's email. An email may only be registered once. `text`
-- `password`: The user's password. `text`
-- `created_at`: The date and time when the user was created. `timestamp`
-
-### Routes
-
-#### [Authentication](#authentication) _`/auth`_
-
-- [Register](#---register)
-- [Sign In](#---sign-in)
-
-### Authentication
-
-#### Register
-
-###### &nbsp; &nbsp; POST _`/auth/register`_
-
-##### Request
-
-###### Body
-
+**Request Body:**
 ```json
 {
   "username": "johndoe",
@@ -267,31 +179,19 @@ In this section, you will find the example API's endpoints and their respective 
 }
 ```
 
-###### Headers
+**Responses:**
+- `201 Created`: `{ data: {} }`
+- `409 Conflict`: `{ error: { message, details } }`
+- `422 Unprocessable Entity`
+- `500 Internal Server Error`
 
-```json
-{
-  "Content-Type": "application/json"
-}
-```
+---
 
-##### Responses
+### POST `/auth/sign-in`
 
-| Status Code |       Description        |          Properties           |
-| :---------: | :----------------------: | :---------------------------: |
-|   **201**   |         Created          |          `data: {}`           |
-|   **409**   | Email already registered | `error: { message, details }` |
-|   **422**   |      Invalid Input       | `error: { message, details }` |
-|   **500**   |  Internal Server Error   | `error: { message, details }` |
+Logs in a user and returns a JWT token.
 
-#### Sign in
-
-###### POST _`/auth/sign-in`_
-
-##### Request
-
-###### Body
-
+**Request Body:**
 ```json
 {
   "email": "john_doe@gmail.com",
@@ -299,20 +199,45 @@ In this section, you will find the example API's endpoints and their respective 
 }
 ```
 
-###### Headers
+**Responses:**
+- `200 OK`: `{ data: { token } }`
+- `403 Forbidden`: Invalid password
+- `404 Not Found`: User not found
+- `422 Unprocessable Entity`
+- `500 Internal Server Error`
 
-```json
-{
-  "Content-Type": "application/json"
-}
-```
+---
 
-##### Responses
+## 📘 Models
 
-| Status Code |      Description      |          Properties           |
-| :---------: | :-------------------: | :---------------------------: |
-|   **200**   |          OK           |       `data: { token }`       |
-|   **403**   |   Invalid password    | `error: { message, details }` |
-|   **404**   |    User not found     | `error: { message, details }` |
-|   **422**   |     Invalid Input     | `error: { message, details }` |
-|   **500**   | Internal Server Error | `error: { message, details }` |
+### User
+
+| Field       | Type      | Description                     |
+|-------------|-----------|---------------------------------|
+| `id`        | `serial4` | Unique user identifier          |
+| `username`  | `text`    | Username                        |
+| `email`     | `text`    | Must be unique                  |
+| `password`  | `text`    | Hashed password                 |
+| `created_at`| `timestamp` | Account creation timestamp   |
+
+---
+
+## 🔐 Authentication
+
+- Token-based using **JWT**
+- Tokens verified via `requireToken()` middleware
+- Secure endpoints with headers and token validation
+
+---
+
+## 🧠 Final Notes
+
+- You can freely extend the project to include more modules, routes, or services.
+- The `AppError` and `AppLog` structures are reusable in any project.
+- Follow the modular architecture for clean, maintainable code.
+
+---
+
+## 💡 License
+
+MIT — feel free to use and modify for your own purposes.
