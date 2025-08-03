@@ -77,7 +77,7 @@ yarn dev
 ## 🧱 Project Structure
 
 ```
-src/
+typescript/
 ├── controllers/
 ├── middlewares/
 ├── models/
@@ -101,10 +101,10 @@ A custom error handler class designed to standardize error responses.
 
 ```ts
 new AppError(
-  'User not found',   // log message (server-side)
-  404,                // status code
-  'User not found',   // client-facing message
-  'Ensure to provide a valid user ID.' // details
+  "User not found", // log message (server-side)
+  404, // status code
+  "User not found", // client-facing message
+  "Ensure to provide a valid user ID." // details
 );
 ```
 
@@ -112,15 +112,15 @@ new AppError(
 
 A logging utility that categorizes logs using color-coded prefixes for easy debugging:
 
-| Method      | Color   | Prefix        |
-|-------------|---------|---------------|
-| `controller`| Green   | `[Controller]`|
-| `repository`| Blue    | `[Repository]`|
-| `middleware`| Magenta | `[Middleware]`|
-| `service`   | Cyan    | `[Service]`   |
-| `error`     | Red     | `[Error]`     |
-| `server`    | Yellow  | `[Server]`    |
-| `utils`     | Cyan    | `[Utils]`     |
+| Method       | Color   | Prefix         |
+| ------------ | ------- | -------------- |
+| `controller` | Green   | `[Controller]` |
+| `repository` | Blue    | `[Repository]` |
+| `middleware` | Magenta | `[Middleware]` |
+| `service`    | Cyan    | `[Service]`    |
+| `error`      | Red     | `[Error]`      |
+| `server`     | Yellow  | `[Server]`     |
+| `utils`      | Cyan    | `[Utils]`      |
 
 ```ts
 AppLog.middleware("Password is valid");
@@ -136,11 +136,14 @@ The project supports modular middleware through the `useMiddleware` utility.
 ### useMiddleware Options
 
 ```ts
-useMiddleware({
-  schema,     // Joi schema
-  header,     // e.g. 'admin-api-key'
-  token       // boolean - validate JWT
-}, endpoint);
+useMiddleware(
+  {
+    schema, // Joi schema
+    header, // e.g. 'admin-api-key'
+    token, // boolean - validate JWT
+  },
+  endpoint
+);
 ```
 
 ### Built-in Middlewares
@@ -152,11 +155,14 @@ useMiddleware({
 ```ts
 adminRouter.post(
   "/admin/create",
-  useMiddleware({
-    schema: schema.create,
-    header: 'admin-api-key',
-    token: true
-  }, "/admin/create"),
+  useMiddleware(
+    {
+      schema: schema.create,
+      header: "admin-api-key",
+      token: true,
+    },
+    "/admin/create"
+  ),
   middleware.createValidations,
   controller.create
 );
@@ -171,6 +177,7 @@ adminRouter.post(
 Registers a new user.
 
 **Request Body:**
+
 ```json
 {
   "username": "johndoe",
@@ -180,6 +187,7 @@ Registers a new user.
 ```
 
 **Responses:**
+
 - `201 Created`: `{ data: {} }`
 - `409 Conflict`: `{ error: { message, details } }`
 - `422 Unprocessable Entity`
@@ -192,6 +200,7 @@ Registers a new user.
 Logs in a user and returns a JWT token.
 
 **Request Body:**
+
 ```json
 {
   "email": "john_doe@gmail.com",
@@ -200,6 +209,7 @@ Logs in a user and returns a JWT token.
 ```
 
 **Responses:**
+
 - `200 OK`: `{ data: { token } }`
 - `403 Forbidden`: Invalid password
 - `404 Not Found`: User not found
@@ -212,13 +222,13 @@ Logs in a user and returns a JWT token.
 
 ### User
 
-| Field       | Type      | Description                     |
-|-------------|-----------|---------------------------------|
-| `id`        | `serial4` | Unique user identifier          |
-| `username`  | `text`    | Username                        |
-| `email`     | `text`    | Must be unique                  |
-| `password`  | `text`    | Hashed password                 |
-| `created_at`| `timestamp` | Account creation timestamp   |
+| Field        | Type        | Description                |
+| ------------ | ----------- | -------------------------- |
+| `id`         | `serial4`   | Unique user identifier     |
+| `username`   | `text`      | Username                   |
+| `email`      | `text`      | Must be unique             |
+| `password`   | `text`      | Hashed password            |
+| `created_at` | `timestamp` | Account creation timestamp |
 
 ---
 
